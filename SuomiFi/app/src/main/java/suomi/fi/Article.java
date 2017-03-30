@@ -14,27 +14,13 @@ public class Article {
     public String articleLink;
     public String articleOId;
     public String articleContent;
-    public String articleLang;
-    public String articleLevel;
-    public String articleCurl;
-    public String articleCorp;
-    public String articleExurl;
-    public String articleDesc;
-
 
     public Article(JSONObject object) {
         try{
             this.articleName = object.getString("@title");
             this.articleLink = object.getString("$");
             this.articleOId  = object.getString("@oid");
-            this.articleCurl = object.getString("@corporateurl1");
-            this.articleCorp = object.getString("@corporate1");
-            this.articleExurl = object.getString("@externalurl");
-            this.articleDesc = object.getString("@description");
-            this.articleLang = object.getString("@lang");
-
             this.articleContent = object.getString("content");
-
 
         }catch(JSONException e)
         {
@@ -59,13 +45,18 @@ public class Article {
         return articles;
     }
 
-    public static String getArticle(JSONObject jsonObjects) {
-            String articleString = "null";
-            try {
-                articleString = jsonObjects.getString("content");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+    public static Article getJSONobject(JSONObject object) {
+        Article article = new Article(object);
+        return article;
+    }
+
+    public static String getArticle(String contentKEY, JSONObject jsonObjects) {
+        String articleString = "null";
+        try {
+            articleString = jsonObjects.getString(contentKEY);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
 
