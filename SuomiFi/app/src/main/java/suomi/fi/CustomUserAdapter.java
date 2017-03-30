@@ -4,27 +4,16 @@ package suomi.fi;
  * Created by ville on 18.3.2017.
  */
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.annotation.MainThread;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static android.content.ContentValues.TAG;
+import java.util.ArrayList;
 
 
 public class CustomUserAdapter extends ArrayAdapter<Article> {
@@ -32,7 +21,13 @@ public class CustomUserAdapter extends ArrayAdapter<Article> {
         super(context, 0, articles);
     }
 
+    String m_IntentKey;
+    String m_ArticleOID;
 
+    public void passIntentKey(String key)
+    {
+        this.m_IntentKey = key;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -60,9 +55,11 @@ public class CustomUserAdapter extends ArrayAdapter<Article> {
             {
 
                 int position = (Integer)view.getTag();
-                Intent intent = new Intent(view.getContext(), Main2Activity.class);
+                Intent intent = new Intent(view.getContext(), Main3Activity.class);
                 Article article = getItem(position);
-                intent.putExtra(kohde.EXTRA_MESSAGE, kohde.WEBSITE_URL+article.articleOId+kohde.WEBSITE_API);
+                m_ArticleOID = article.articleOId;
+                String[] intentPacket = new String[] {m_IntentKey, m_ArticleOID};
+                intent.putExtra(MainActivity.EXTRA_MESSAGE, intentPacket);
                 view.getContext().startActivity(intent);
             }
         });
@@ -72,5 +69,4 @@ public class CustomUserAdapter extends ArrayAdapter<Article> {
     }
 
 
-    }
-
+}

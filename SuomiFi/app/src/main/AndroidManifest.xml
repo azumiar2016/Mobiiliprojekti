@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity" />
-        <activity android:name=".kohde"></activity>
+        <activity android:name=".Main3Activity"></activity>
     </application>
 
 </manifest>
