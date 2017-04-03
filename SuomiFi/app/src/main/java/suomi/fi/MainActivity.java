@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<String> buttonArray = new ArrayList<String>(Arrays.asList("Palveluluokat","Maakunnat","Asiasanat","Organisaatiot","Lomakkeet","Linkit"));
+    List<String> buttonArray = new ArrayList<String>(Arrays.asList("Maakunnat","Asiasanat","Organisaatiot","Lomakkeet","Linkit")); //Palveluluokat poistettu buttoneista
     public static final String EXTRA_MESSAGE = "suomi.fi.jsonlist.MESSAGE";
     ArrayList<Batch> arrayOfBatches = new ArrayList<>();
 

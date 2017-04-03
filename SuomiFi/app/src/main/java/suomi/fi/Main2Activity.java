@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -31,7 +33,7 @@ public class Main2Activity extends AppCompatActivity {
     CustomUserAdapter adapter;
     JSONArray articleArrays;
     public String intentLock;
-
+    public boolean fail = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class Main2Activity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
+
+            //if json string exists
             if(jsonStr != null)
             {
                 try {
@@ -87,6 +91,11 @@ public class Main2Activity extends AppCompatActivity {
 
                 }
             }
+
+            // else set fail trigger on
+            else{
+                fail = true;
+            }
             return null;
         }
 
@@ -94,12 +103,19 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-            // Create the adapter to convert the array to views
-            adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
-            adapter.passIntentKey(intentLock);
-            // Attach the adapter to a ListView
-            ListView listView = (ListView) findViewById(R.id.list2);
-            listView.setAdapter(adapter);
+
+            //if json string fails
+            if(fail == true){
+                TextView tx = (TextView)findViewById(R.id.listTitle);
+                tx.setText("Palvelu ei ole käytettäväissä tällä hetkellä");
+            } else {
+                // Create the adapter to convert the array to views
+                adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
+                adapter.passIntentKey(intentLock);
+                // Attach the adapter to a ListView
+                ListView listView = (ListView) findViewById(R.id.list2);
+                listView.setAdapter(adapter);
+            }
 
         }
 
@@ -175,9 +191,10 @@ public class Main2Activity extends AppCompatActivity {
             case (R.id.Kunnat):
                 Toast.makeText(this, "Kunnat selected", Toast.LENGTH_LONG).show();
                 return true;
-            case (R.id.Palvelut):
+            /*case (R.id.Palvelut):
                 Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
                 return true;
+                */
         }
         return false;
     }

@@ -26,12 +26,15 @@
         >
 
     </item>
+    <!--
+       <item
+           android:title="Palvelut"
+           android:id="@+id/Palvelut"
+           app:showAsAction="ifRoom"
+           >
 
-    <item
-        android:title="Palvelut"
-        android:id="@+id/Palvelut"
-        app:showAsAction="ifRoom"
-        >
 
-    </item>
-</menu>
+       </item>
+       -->
+
+   </menu>
