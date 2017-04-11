@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -20,9 +22,10 @@ import java.util.Arrays;
 import java.util.List;
 import static android.content.ContentValues.TAG;
 
+/*
+ * Main2Activity lists the items for selected button
+ */
 public class Main2Activity extends AppCompatActivity {
-
-
 
     ContentBuilder contentBuilder = new ContentBuilder();
     ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
@@ -30,8 +33,10 @@ public class Main2Activity extends AppCompatActivity {
     String jsonTAG;
     CustomUserAdapter adapter;
     JSONArray articleArrays;
-    public String intentLock;
 
+    private int oidCounty;
+    public String intentLock;
+    public boolean fail = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +45,20 @@ public class Main2Activity extends AppCompatActivity {
 
 
         intentLock = getIntent().getExtras().getString(CustomAdapter.key);
-        url = contentBuilder.BuildContent(intentLock);
+        Log.d("TAGI", "intentLock:" + intentLock);
+        //If key is KEYkunnat get county oid for listing the municipipalities of
+        // selected county
+        if(intentLock.contains("KEYkunnat")) {
+            String[] intentArray = getIntent().getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+            oidCounty =  Integer.parseInt(intentArray[1]);
+            contentBuilder = new ContentBuilder();
+            Log.d("TAGI", "oidCounty:" + oidCounty);
+        }
+        url = contentBuilder.BuildContent(intentLock, oidCounty);
+        Log.d("TAGI", "contentbuilder url: " + url);
         jsonTAG = contentBuilder.m_JsonTAG;
+
+        Log.d("TAGI", "jsonTAG: " + jsonTAG);
 
 
         new GetJSONData().execute();
@@ -63,19 +80,26 @@ public class Main2Activity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(url);
 
-            Log.e(TAG, "Response from url: " + jsonStr);
+            Log.e("TAGI", "Response from url: " + jsonStr);
+
+            //if json string exists
             if(jsonStr != null)
             {
                 try {
-
+                    Log.e("TAGI", "trying jsonTAG: " +jsonTAG);
                     JSONObject jsonObj = new JSONObject(jsonStr);
-                    articleArrays = jsonObj.getJSONArray(jsonTAG);
+                    if(jsonTAG.contains("municipalities")){
+                        JSONObject jsonObjsub = jsonObj.getJSONObject(jsonTAG);
+                        articleArrays = jsonObjsub.getJSONArray("municipality");
+                    } else {
+                        articleArrays = jsonObj.getJSONArray(jsonTAG);
+                    }
                     arrayOfArticles = Article.getArticles(articleArrays);
 
 
                 }catch (final JSONException e){
 
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    Log.e("TAGI", "Json parsing error1: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -87,6 +111,11 @@ public class Main2Activity extends AppCompatActivity {
 
                 }
             }
+
+            // else set fail trigger on
+            else{
+                fail = true;
+            }
             return null;
         }
 
@@ -94,12 +123,19 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-            // Create the adapter to convert the array to views
-            adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
-            adapter.passIntentKey(intentLock);
-            // Attach the adapter to a ListView
-            ListView listView = (ListView) findViewById(R.id.list2);
-            listView.setAdapter(adapter);
+
+            //if json string fails
+            if(fail == true){
+                TextView tx = (TextView)findViewById(R.id.listTitle);
+                tx.setText(getString(R.string.Service_unavailable));
+            } else {
+                // Create the adapter to convert the array to views
+                adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
+                adapter.passIntentKey(intentLock);
+                // Attach the adapter to a ListView
+                ListView listView = (ListView) findViewById(R.id.list2);
+                listView.setAdapter(adapter);
+            }
 
         }
 
@@ -156,6 +192,7 @@ public class Main2Activity extends AppCompatActivity {
                     adapter.passIntentKey(intentLock);
                     listView.setAdapter(adapter);
                 }
+                Log.d("TAGI", "arrayOfArticles: " + arrayOfArticles);
                 return false;
             }
         });
@@ -175,9 +212,10 @@ public class Main2Activity extends AppCompatActivity {
             case (R.id.Kunnat):
                 Toast.makeText(this, "Kunnat selected", Toast.LENGTH_LONG).show();
                 return true;
-            case (R.id.Palvelut):
+            /*case (R.id.Palvelut):
                 Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
                 return true;
+                */
         }
         return false;
     }

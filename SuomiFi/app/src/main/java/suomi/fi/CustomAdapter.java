@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * Created by ville on 27.3.2017.
  */
 
-public class CustomAdapter extends ArrayAdapter<Batch> {
+public class CustomAdapter extends ArrayAdapter<Batch>
+{
 
     final static String key = "-";
 
@@ -23,19 +24,29 @@ public class CustomAdapter extends ArrayAdapter<Batch> {
         super(context, 0, batches);
     }
 
+    /*
+     * Main view for MainActivity
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        // initialize a button identifier for current position
         Batch batch = getItem(position);
-        if (convertView == null) {
 
+        // If view doesn't exists, create a new view from xml layout
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
+        //Empty button
         Button button = (Button)convertView.findViewById(R.id.button);
+
+        // Set button text
         button.setText(batch.m_ButtonTag);
         button.setTag(position);
+
+        // Event listener for the button
         button.setOnClickListener(new View.OnClickListener()
         {
 
@@ -45,25 +56,35 @@ public class CustomAdapter extends ArrayAdapter<Batch> {
                 int position = (Integer)view.getTag();
                 Batch batch = getItem(position);
 
+                // Set activity intent for selected button on Main2Activity
                 switch (batch.m_ButtonTag)
                 {
-                    case "Palveluluokat":
+                    /*case "Palveluluokat":
                         Intent intent = new Intent(view.getContext(), Main2Activity.class);
                         intent.putExtra(key, "KEYpalveluluokat");
                         view.getContext().startActivity(intent);
+                        break;*/
+
+                    // List of counties
+                    case "Maakunnat":
+                        Intent intent1 = new Intent(view.getContext(), Main2Activity.class);
+                        intent1.putExtra(key, "KEYmaakunnat");
+                        view.getContext().startActivity(intent1);
                         break;
 
-                    case "Maakunnat":
+                    // List of minucipalities in the selected county
+                    case "Kunnat":
                         Intent intent2 = new Intent(view.getContext(), Main2Activity.class);
-                        intent2.putExtra(key, "KEYmaakunnat");
+                        intent2.putExtra(key, "KEYkunnat");
                         view.getContext().startActivity(intent2);
                         break;
 
-                    case "Asiasanat":
+                   /* case "Asiasanat":
                         Intent intent3 = new Intent(view.getContext(), Main2Activity.class);
                         intent3.putExtra(key, "KEYasiasanat");
                         view.getContext().startActivity(intent3);
-                        break;
+                        break;*/
+
 
                     case "Organisaatiot":
                         Intent intent4 = new Intent(view.getContext(), Main2Activity.class);
@@ -82,15 +103,10 @@ public class CustomAdapter extends ArrayAdapter<Batch> {
                         intent6.putExtra(key, "KEYlinkit");
                         view.getContext().startActivity(intent6);
                         break;
-
-
                 }
-
             }
-
         });
 
         return convertView;
     }
-
 }

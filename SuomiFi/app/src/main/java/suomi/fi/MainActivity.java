@@ -9,19 +9,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<String> buttonArray = new ArrayList<String>(Arrays.asList("Palveluluokat","Maakunnat","Asiasanat","Organisaatiot","Lomakkeet","Linkit"));
+
+    // List of items in MainActivity
+    List<String> buttonArray = new ArrayList<String>(
+            Arrays.asList("Maakunnat","Asiasanat","Organisaatiot","Lomakkeet","Linkit")
+    ); //Palveluluokat poistettu buttoneista
+
+    // debug message tag
     public static final String EXTRA_MESSAGE = "suomi.fi.jsonlist.MESSAGE";
+
+
+    // List of button identifiers (Batches)
     ArrayList<Batch> arrayOfBatches = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        //Build a list for button identifiers
         arrayOfBatches = Batch.buildBatches(buttonArray);
 
         CustomAdapter adapter = new CustomAdapter(MainActivity.this, arrayOfBatches);
