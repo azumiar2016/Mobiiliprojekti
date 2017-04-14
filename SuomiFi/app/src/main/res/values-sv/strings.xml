@@ -7,9 +7,18 @@
     <string name="general_info">Allmän information</string>
     <string name="make_call">Samtal</string>
 
+    <string name="Organizations">Organisationer</string>
+    <string name="Services">Palvelut</string>
+    <string name="Links">Länkar</string>
+    <string name="Forms">Former</string>
+    <string name="Municipalities">Kommuner</string>
+    <string name="Settings">Inställningar</string>
+
     <string name="btn_Municipalities">Kommuner</string>
     <string name="btn_Organizations">Organisationer</string>
     <string name="btn_Forms">Former</string>
     <string name="btn_Links">Länkar</string>
+
+    <string name="Read_more">Läs Mer >></string>
 
 </resources>

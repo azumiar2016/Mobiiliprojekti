@@ -12,25 +12,73 @@
     </item>
 
     <item
-        android:title="Kunnat ja maakunnat"
-        android:id="@+id/Kunnat"
-        app:showAsAction="ifRoom">
+        android:title="@string/Municipalities"
+        android:id="@+id/Municipalities"
+        app:showAsAction="ifRoom"
+       >
 
     </item>
 
     <item
-        android:title="Organisaatiot"
-        android:id="@+id/Organisaatiot"
-        app:showAsAction="ifRoom">
+        android:title="@string/Organizations"
+        android:id="@+id/Organizations"
+        app:showAsAction="ifRoom"
+        >
 
     </item>
 
+    <item
+        android:title="@string/Forms"
+        android:id="@+id/Forms"
+        app:showAsAction="ifRoom"
+        >
 
+    </item>
+
+    <item
+        android:title="@string/Links"
+        android:id="@+id/Links"
+        app:showAsAction="ifRoom"
+        >
+
+    </item>
+
+    <item
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:id="@+id/Settings"
+        app:showAsAction="always"
+        >
+
+        <menu>
+            <item
+                android:title="fi"
+                android:id="@+id/fi_language"
+                android:icon="@mipmap/suomi_item_2"
+                 />
+            <item
+                android:id="@+id/sv_language"
+                android:title="sv"
+                android:icon="@mipmap/ruotsi_item"
+                />
+            <item
+                android:id="@+id/en_language"
+                android:title="en"
+                android:icon="@mipmap/englanti_item"
+                />
+
+        </menu>
+
+    </item>
+    <!--
        <item
-           android:title="Linkit"
-           android:id="@+id/Linkit"
-           app:showAsAction="ifRoom">
-       </item>
+           android:title="@string/Services"
+           android:id="@+id/Services"
+           app:showAsAction="ifRoom"
+           >
 
+
+       </item>
+       -->
 
    </menu>

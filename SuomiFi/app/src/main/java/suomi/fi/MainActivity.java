@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     // List of items in MainActivity
     List<String> buttonArray = new ArrayList<String>(
             Arrays.asList("Maakunnat","Organisaatiot","Lomakkeet","Linkit")
-    ); //Palveluluokat poistettu buttoneista
+    ); //Palveluluokat ja Asiasanat poistettu buttoneista
 
     // debug message tag
     public static final String EXTRA_MESSAGE = "suomi.fi.jsonlist.MESSAGE";

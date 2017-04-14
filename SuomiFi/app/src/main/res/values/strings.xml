@@ -14,12 +14,15 @@
     <string name="Services">Palvelut</string>
     <string name="Links">Linkit</string>
     <string name="Forms">Lomakkeet</string>
-    <string name="Muncipalities">Kunnat</string>
+    <string name="Municipalities">Kunnat</string>
+    <string name="Settings">Asetukset</string>
 
     <string name="btn_Munciipalities">Kunnat</string>
     <string name="btn_Organizations">Organisaatiot</string>
     <string name="btn_Forms">Lomakkeet</string>
     <string name="btn_Links">Linkit</string>
+
+    <string name="Read_more">Lue Lisää >></string>
 
 
 </resources>
