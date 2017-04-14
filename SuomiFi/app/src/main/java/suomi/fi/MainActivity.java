@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     // List of items in MainActivity
     List<String> buttonArray = new ArrayList<String>(
-            Arrays.asList("Maakunnat","Organisaatiot","Lomakkeet","Linkit")
+            Arrays.asList("Maakunnat", "Organisaatiot", "Lomakkeet", "Linkit")
     ); //Palveluluokat ja Asiasanat poistettu buttoneista
 
     // debug message tag
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         arrayOfBatches = Batch.buildBatches(buttonArray);
 
         CustomAdapter adapter = new CustomAdapter(MainActivity.this, arrayOfBatches);
-        ListView listView = (ListView)findViewById(R.id.list);
+        ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
 
     }

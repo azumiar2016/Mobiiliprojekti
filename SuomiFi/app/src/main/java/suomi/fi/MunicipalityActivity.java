@@ -53,17 +53,17 @@ public class MunicipalityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_municipality);
 
-        txtTitle = (TextView)findViewById(R.id.textTitle);
-        btnEmail = (Button)findViewById(R.id.btnEmail);
-        txtAddress = (TextView)findViewById(R.id.textAddress);
-        txtPhone = (TextView)findViewById(R.id.textPhone);
-        txtEmail = (TextView)findViewById(R.id.textEmail);
-        txtWebsite = (TextView)findViewById(R.id.textWebsite);
-        btnWebsite = (Button)findViewById(R.id.btnWebsite);
-        btnGeneral = (Button)findViewById(R.id.btnGeneral);
-        btnFinancial = (Button)findViewById(R.id.btnFinancial);
-        btnMap = (Button)findViewById(R.id.btnMap);
-        btnCall = (Button)findViewById(R.id.btnPhoneCall);
+        txtTitle = (TextView) findViewById(R.id.textTitle);
+        btnEmail = (Button) findViewById(R.id.btnEmail);
+        txtAddress = (TextView) findViewById(R.id.textAddress);
+        txtPhone = (TextView) findViewById(R.id.textPhone);
+        txtEmail = (TextView) findViewById(R.id.textEmail);
+        txtWebsite = (TextView) findViewById(R.id.textWebsite);
+        btnWebsite = (Button) findViewById(R.id.btnWebsite);
+        btnGeneral = (Button) findViewById(R.id.btnGeneral);
+        btnFinancial = (Button) findViewById(R.id.btnFinancial);
+        btnMap = (Button) findViewById(R.id.btnMap);
+        btnCall = (Button) findViewById(R.id.btnPhoneCall);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -76,7 +76,7 @@ public class MunicipalityActivity extends AppCompatActivity {
         contentBuilder.BuildContent("KEYkunnat", 0);
         url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
 
-        Log.d("TAGI", "MunicipalityActivity started with url: " +url );
+        Log.d("TAGI", "MunicipalityActivity started with url: " + url);
 
         new GetJSONData().execute();
     }
@@ -90,15 +90,13 @@ public class MunicipalityActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... arg0)
-        {
+        protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(url);
             JSONObject jsonObj = new JSONObject();
-            Log.e(TAG, "Response from url: " + jsonStr);
-            if(jsonStr != null)
-            {
+            Log.e("TAGI", "Response from url: " + jsonStr);
+            if (!jsonStr.contains("No municipalities found")) {
                 try {
 
                     jsonObj = new JSONObject(jsonStr);
@@ -106,7 +104,7 @@ public class MunicipalityActivity extends AppCompatActivity {
                     details = new JSONObject(jsonObj.getString("details"));
                     statistics = new JSONObject(jsonObj.getString("statistics"));
 
-                }catch (final JSONException e){
+                } catch (final JSONException e) {
 
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -121,8 +119,8 @@ public class MunicipalityActivity extends AppCompatActivity {
                 }
                 municDetails = new MunicipalityDetail(details, "details");
                 municStatistics = new MunicipalityDetail(statistics, "statistics");
-                Log.d("TAGI", "municDetails: " + details );
-                Log.d("TAGI", "municStatistics: " + statistics );
+                Log.d("TAGI", "municDetails: " + details);
+                Log.d("TAGI", "municStatistics: " + statistics);
 
             }
 
@@ -130,11 +128,10 @@ public class MunicipalityActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result)
-        {
-            Log.d("TAGI", "title: " + title );
+        protected void onPostExecute(Void result) {
+            Log.d("TAGI", "title: " + title);
             super.onPostExecute(result);
-            if(title != null) {
+            if (title != null) {
                 txtTitle.setText(title);
                 txtAddress.setText(municDetails.address);
                 txtPhone.setText(municDetails.phone);
@@ -150,7 +147,7 @@ public class MunicipalityActivity extends AppCompatActivity {
                 });
                 btnEmail.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:"+municDetails.email));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + municDetails.email));
                         startActivity(intent);
                     }
                 });
@@ -171,7 +168,7 @@ public class MunicipalityActivity extends AppCompatActivity {
 
                 btnMap.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="+municDetails.address));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + municDetails.address));
                         startActivity(intent);
                     }
                 });
@@ -182,6 +179,8 @@ public class MunicipalityActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+            } else {
+                txtTitle.setText(R.string.municipality_not_found);
             }
         }
 

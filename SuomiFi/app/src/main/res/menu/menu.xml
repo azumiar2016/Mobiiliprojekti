@@ -44,6 +44,14 @@
     </item>
 
     <item
+        android:title="@string/Main_Menu"
+        android:id="@+id/Mainmenu"
+        app:showAsAction="ifRoom"
+        >
+
+    </item>
+
+    <item
         android:title="Settings"
         android:icon="@android:drawable/ic_menu_mylocation"
         android:id="@+id/Settings"
@@ -70,6 +78,8 @@
         </menu>
 
     </item>
+
+
     <!--
        <item
            android:title="@string/Services"

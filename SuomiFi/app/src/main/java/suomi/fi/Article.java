@@ -3,6 +3,7 @@ package suomi.fi;
 /**
  * Created by ville on 18.3.2017.
  */
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,22 +17,20 @@ public class Article {
     public String articleContent;
 
     public Article(JSONObject object) {
-        try{
+        try {
             this.articleName = object.getString("@title");
             this.articleLink = object.getString("$");
-            this.articleOId  = object.getString("@oid");
+            this.articleOId = object.getString("@oid");
             this.articleContent = object.getString("content");
 
-        }catch(JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public static ArrayList<Article> getArticles(JSONArray jsonArrays) {
         ArrayList<Article> articles = new ArrayList<Article>();
-        for(int i = 0; i < jsonArrays.length(); i++)
-        {
+        for (int i = 0; i < jsonArrays.length(); i++) {
 
             try {
                 articles.add(new Article(jsonArrays.getJSONObject(i)));
@@ -57,8 +56,6 @@ public class Article {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
 
         return articleString;

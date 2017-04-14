@@ -14,13 +14,11 @@ import java.util.ArrayList;
  * Created by ville on 27.3.2017.
  */
 
-public class CustomAdapter extends ArrayAdapter<Batch>
-{
+public class CustomAdapter extends ArrayAdapter<Batch> {
 
     final static String key = "-";
 
-    public CustomAdapter(Context context, ArrayList<Batch> batches)
-    {
+    public CustomAdapter(Context context, ArrayList<Batch> batches) {
         super(context, 0, batches);
     }
 
@@ -29,8 +27,7 @@ public class CustomAdapter extends ArrayAdapter<Batch>
      */
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         // initialize a button identifier for current position
         Batch batch = getItem(position);
 
@@ -40,25 +37,22 @@ public class CustomAdapter extends ArrayAdapter<Batch>
         }
 
         //Empty button
-        Button button = (Button)convertView.findViewById(R.id.button);
+        Button button = (Button) convertView.findViewById(R.id.button);
 
         // Set button text
         button.setText(batch.m_ButtonTag);
         button.setTag(position);
 
         // Event listener for the button
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view)
-            {
-                int position = (Integer)view.getTag();
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
                 Batch batch = getItem(position);
 
                 // Set activity intent for selected button on Main2Activity
-                switch (batch.m_ButtonTag)
-                {
+                switch (batch.m_ButtonTag) {
                     /*case "Palveluluokat":
                         Intent intent = new Intent(view.getContext(), Main2Activity.class);
                         intent.putExtra(key, "KEYpalveluluokat");

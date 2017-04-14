@@ -8,6 +8,7 @@
     <string name="general_info">Yleistietoja</string>
     <string name="make_call">Soita</string>
     <string name="Service_unavailable">Palvelu ei ole tällä hetkellä käytettävissä</string>
+    <string name="municipality_not_found">Kuntatietoa ei ole saatavilla valitsemallasi kielellä</string>
 
     <string name="Organizations">Organisaatiot</string>
     <string name="Services">Palvelut</string>
@@ -22,6 +23,6 @@
     <string name="btn_Links">Linkit</string>
 
     <string name="Read_more">Lue Lisää >></string>
-
+    <string name="Main_Menu">Päävalikko</string>
 
 </resources>

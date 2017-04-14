@@ -36,14 +36,14 @@ public class Main3Activity extends AppCompatActivity {
         String[] intentArray = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 
         m_IntentKEYType = intentArray[0];
-        m_UrlOID =  intentArray[1];
+        m_UrlOID = intentArray[1];
 
         contentBuilder.BuildContent(m_IntentKEYType, 0);
         url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
 
         // If opening a municipality, start new activity and finish this one
-        if(m_IntentKEYType.contains("KEYkunnat")){
-            Intent intentMunicipality = new Intent(this,MunicipalityActivity.class);
+        if (m_IntentKEYType.contains("KEYkunnat")) {
+            Intent intentMunicipality = new Intent(this, MunicipalityActivity.class);
 
             // Pass municipality oid to the new activity
             intentMunicipality.putExtra("oid", m_UrlOID);
@@ -64,47 +64,44 @@ public class Main3Activity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... arg0)
-        {
+        protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
-            if(jsonStr != null)
-            {
+            if (jsonStr != null) {
                 try {
 
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
-                    switch (m_IntentKEYType)
-                    {
+                    switch (m_IntentKEYType) {
                         case "KEYpalveluluokat":
-                            m_ArticleString = Article.getArticle("content",jsonObj);
+                            m_ArticleString = Article.getArticle("content", jsonObj);
                             break;
 
                         case "KEYmaakunnat":
-                            m_ArticleString = Article.getArticle("title",jsonObj);
+                            m_ArticleString = Article.getArticle("title", jsonObj);
                             break;
 
                         case "KEYorganisaatiot":
-                            m_ArticleString = Article.getArticle("contacturl",jsonObj);
+                            m_ArticleString = Article.getArticle("contacturl", jsonObj);
                             break;
 
                         case "KEYlinkit":
-                            m_ArticleString = Article.getArticle("externalurl",jsonObj);
+                            m_ArticleString = Article.getArticle("externalurl", jsonObj);
                             break;
 
                         case "KEYlomakkeet":
-                            m_ArticleString = Article.getArticle("url",jsonObj);
+                            m_ArticleString = Article.getArticle("url", jsonObj);
                             break;
 
-                            //dismissingASIASANAT
+                        //dismissingASIASANAT
 
                     }
 
 
-                }catch (final JSONException e){
+                } catch (final JSONException e) {
 
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -122,8 +119,7 @@ public class Main3Activity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result)
-        {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             //TextView textView = (TextView) findViewById(R.id.textView);
             //Resources res = getResources();

@@ -17,18 +17,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class CustomUserAdapter extends ArrayAdapter<Article>
-{
-    public CustomUserAdapter(Context context, ArrayList<Article> articles)
-    {
+public class CustomUserAdapter extends ArrayAdapter<Article> {
+    public CustomUserAdapter(Context context, ArrayList<Article> articles) {
         super(context, 0, articles);
     }
 
     String m_IntentKey;
     String m_ArticleOID;
 
-    public void passIntentKey(String key)
-    {
+    public void passIntentKey(String key) {
         this.m_IntentKey = key;
     }
 
@@ -49,14 +46,12 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
         tvArticle.setText(article.articleName);
 
 
-        Button btButton = (Button)convertView.findViewById(R.id.button);
+        Button btButton = (Button) convertView.findViewById(R.id.button);
         btButton.setTag(position);
-        btButton.setOnClickListener(new View.OnClickListener()
-        {
+        btButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                int position = (Integer)view.getTag();
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
                 Article article = getItem(position);
                 m_ArticleOID = article.articleOId;
                 Log.d("TAGI", "m_IntentKey: " + m_IntentKey);
@@ -66,17 +61,17 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
                 // and list municipalities of the selected county
                 Intent intent;
                 String[] intentPacket;
-                if(m_IntentKey.contains("KEYmaakunnat")){
+                if (m_IntentKey.contains("KEYmaakunnat")) {
                     Log.d("TAGI", "KEYmaakunnat selected: ");
                     intent = new Intent(view.getContext(), Main2Activity.class);
-                    intentPacket = new String[] {m_IntentKey, m_ArticleOID};
+                    intentPacket = new String[]{m_IntentKey, m_ArticleOID};
                     intent.putExtra("-", "KEYkunnat");
                 }
                 // Otherwise set intent to Main3Activity (Article)
                 else {
                     Log.d("TAGI", "KEYmaakunnat not selected: ");
                     intent = new Intent(view.getContext(), Main3Activity.class);
-                    intentPacket = new String[] {m_IntentKey, m_ArticleOID};
+                    intentPacket = new String[]{m_IntentKey, m_ArticleOID};
                 }
                 intent.putExtra(MainActivity.EXTRA_MESSAGE, intentPacket);
                 view.getContext().startActivity(intent);

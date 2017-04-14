@@ -7,6 +7,7 @@
     <string name="general_info">General information</string>
     <string name="make_call">Call</string>
     <string name="Service_unavailable">Service is currently unavailable</string>
+    <string name="municipality_not_found">Municipality information not available in your language</string>
 
     <string name="Organizations">Organizations</string>
     <string name="Services">Services</string>
@@ -21,6 +22,6 @@
     <string name="btn_Links">Links</string>
 
     <string name="Read_more">Read More >></string>
-
+    <string name="Main_Menu">Main menu</string>
 
 </resources>

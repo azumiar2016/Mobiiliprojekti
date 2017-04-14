@@ -54,9 +54,9 @@ public class Main2Activity extends AppCompatActivity {
         Log.d("TAGI", "intentLock:" + intentLock);
         //If key is KEYkunnat get county oid for listing the municipipalities of
         // selected county
-        if(intentLock.contains("KEYkunnat")) {
+        if (intentLock.contains("KEYkunnat")) {
             String[] intentArray = getIntent().getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
-            oidCounty =  Integer.parseInt(intentArray[1]);
+            oidCounty = Integer.parseInt(intentArray[1]);
             contentBuilder = new ContentBuilder();
             Log.d("TAGI", "oidCounty:" + oidCounty);
         }
@@ -75,13 +75,12 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(Main2Activity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(Main2Activity.this, "Json Data is downloading", Toast.LENGTH_LONG).show();
 
         }
 
         @Override
-        protected Void doInBackground(Void... arg0)
-        {
+        protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(url);
@@ -89,12 +88,11 @@ public class Main2Activity extends AppCompatActivity {
             Log.e("TAGI", "Response from url: " + jsonStr);
 
             //if json string exists
-            if(jsonStr != null)
-            {
+            if (jsonStr != null) {
                 try {
-                    Log.e("TAGI", "trying jsonTAG: " +jsonTAG);
+                    Log.e("TAGI", "trying jsonTAG: " + jsonTAG);
                     JSONObject jsonObj = new JSONObject(jsonStr);
-                    if(jsonTAG.contains("municipalities")){
+                    if (jsonTAG.contains("municipalities")) {
                         JSONObject jsonObjsub = jsonObj.getJSONObject(jsonTAG);
                         articleArrays = jsonObjsub.getJSONArray("municipality");
                     } else {
@@ -103,7 +101,7 @@ public class Main2Activity extends AppCompatActivity {
                     arrayOfArticles = Article.getArticles(articleArrays);
 
 
-                }catch (final JSONException e){
+                } catch (final JSONException e) {
 
                     Log.e("TAGI", "Json parsing error1: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -119,20 +117,19 @@ public class Main2Activity extends AppCompatActivity {
             }
 
             // else set fail trigger on
-            else{
+            else {
                 fail = true;
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result)
-        {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
             //if json string fails
-            if(fail == true){
-                TextView tx = (TextView)findViewById(R.id.listTitle);
+            if (fail == true) {
+                TextView tx = (TextView) findViewById(R.id.listTitle);
                 tx.setText(getString(R.string.Service_unavailable));
             } else {
                 // Create the adapter to convert the array to views
@@ -152,7 +149,7 @@ public class Main2Activity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
-        SearchView searchView = (SearchView)item.getActionView();
+        SearchView searchView = (SearchView) item.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -164,13 +161,13 @@ public class Main2Activity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
 
                 // if search string length > 1
-                if(newText.length() > 1) {
+                if (newText.length() > 1) {
 
                     //reset array list
                     arrayOfArticles = new ArrayList<Article>();
 
                     //loop all articles
-                    for(int i = 0; i < articleArrays.length(); i++) {
+                    for (int i = 0; i < articleArrays.length(); i++) {
                         try {
 
                             //get single article object
@@ -182,12 +179,12 @@ public class Main2Activity extends AppCompatActivity {
 
                             //if title contains the search string...
                             //note: change this string to lower case too
-                            if(title.contains(newText.toLowerCase())) {
+                            if (title.contains(newText.toLowerCase())) {
 
                                 // add article on the ArrayList
-                                arrayOfArticles.add( Article.getJSONobject(json_data));
+                                arrayOfArticles.add(Article.getJSONobject(json_data));
                             }
-                        }catch (final JSONException e){
+                        } catch (final JSONException e) {
                             Log.e("DEBUG", "Json parsing error: " + e.getMessage());
                         }
                     }
@@ -213,64 +210,91 @@ public class Main2Activity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case (R.id.Organizations):
-                Toast.makeText(this, getString(R.string.Organizations)+" selected", Toast.LENGTH_LONG).show();
-                Intent intent1 = new Intent(this, Main2Activity.class);
+                Toast.makeText(this, getString(R.string.Organizations) + " selected", Toast.LENGTH_LONG).show();
+                Intent intent1 = getIntent();
                 intent1.putExtra(key, "KEYorganisaatiot");
+                finish();
                 startActivity(intent1);
                 return true;
             case (R.id.Municipalities):
-                Toast.makeText(this, getString(R.string.Municipalities)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
+                Toast.makeText(this, getString(R.string.Municipalities) + " selected", Toast.LENGTH_LONG).show();
+                intent1 = getIntent();
                 intent1.putExtra(key, "KEYmaakunnat");
+                finish();
                 startActivity(intent1);
                 return true;
             case (R.id.Forms):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
+                Toast.makeText(this, getString(R.string.Forms) + " selected", Toast.LENGTH_LONG).show();
+                intent1 = getIntent();
                 intent1.putExtra(key, "KEYlomakkeet");
+                finish();
                 startActivity(intent1);
                 return true;
             case (R.id.Links):
-                Toast.makeText(this, getString(R.string.Links)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
+                Toast.makeText(this, getString(R.string.Links) + " selected", Toast.LENGTH_LONG).show();
+                intent1 = getIntent();
                 intent1.putExtra(key, "KEYlinkit");
+                finish();
+                startActivity(intent1);
+                return true;
+
+            case (R.id.Mainmenu):
+                Toast.makeText(this, getString(R.string.Links) + " selected", Toast.LENGTH_LONG).show();
+                intent1 = new Intent(this,MainActivity.class);
                 startActivity(intent1);
                 return true;
             case (R.id.Settings):
-                Toast.makeText(this, getString(R.string.Settings)+ " selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.Settings) + " selected", Toast.LENGTH_LONG).show();
                 return true;
-
             case (R.id.en_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
                 Locale locale = new Locale("en");
                 Locale.setDefault(locale);
                 Configuration config = new Configuration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config,
                         getBaseContext().getResources().getDisplayMetrics());
-                recreate();
+                if (oidCounty != 0) {
+                    intent1 = getIntent();
+                    intent1.putExtra(key, "KEYmaakunnat");
+                    finish();
+                    startActivity(intent1);
+                } else {
+                    recreate();
+                }
                 return true;
-
             case (R.id.fi_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.Forms) + " selected", Toast.LENGTH_LONG).show();
                 locale = new Locale("fi");
                 Locale.setDefault(locale);
                 config = new Configuration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config,
                         getBaseContext().getResources().getDisplayMetrics());
-                recreate();
+                if (oidCounty != 0) {
+                    intent1 = getIntent();
+                    intent1.putExtra(key, "KEYmaakunnat");
+                    finish();
+                    startActivity(intent1);
+                } else {
+                    recreate();
+                }
                 return true;
-
             case (R.id.sv_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.Forms) + " selected", Toast.LENGTH_LONG).show();
                 locale = new Locale("sv");
                 Locale.setDefault(locale);
                 config = new Configuration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config,
                         getBaseContext().getResources().getDisplayMetrics());
-                recreate();
+                if (oidCounty != 0) {
+                    intent1 = getIntent();
+                    intent1.putExtra(key, "KEYmaakunnat");
+                    finish();
+                    startActivity(intent1);
+                } else {
+                    recreate();
+                }
                 return true;
             /*case (R.id.Palvelut):
                 Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
