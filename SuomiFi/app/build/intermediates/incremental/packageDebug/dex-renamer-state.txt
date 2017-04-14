@@ -1,0 +1,7 @@
+#Fri Apr 14 14:10:47 EEST 2017
+base.0=/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_4d683b3af209eefcb9ff2f5c7860ab15efab18f4
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ed67cdb25487257d8e7b82ad77198f08a1f0337d/classes.dex
+base.1=/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ed67cdb25487257d8e7b82ad77198f08a1f0337d
+file.0=/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_4d683b3af209eefcb9ff2f5c7860ab15efab18f4/classes.dex

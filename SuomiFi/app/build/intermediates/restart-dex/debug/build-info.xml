@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="23"
+    density="xhdpi"
+    format="8"
+    plugin-version="2.2.3"
+    timestamp="15734873999450"
+    token="-3987092000187932171"
+    verifier="COMPATIBLE" >
+
+    <task
+        name="javac"
+        duration="209" />
+    <task
+        name="instant-run-dex"
+        duration="35" />
+    <task
+        name="instant-run-transform"
+        duration="30" />
+    <task
+        name="verifier"
+        duration="0" />
+
+    <artifact
+        location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
+
+    <build
+        timestamp="12041107001680"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+    <build
+        timestamp="13355003391611"
+        verifier="R_CLASS_CHANGE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_4/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="14820018880210"
+        verifier="R_CLASS_CHANGE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="15355433562007"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/builds/debug/15355433562007/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="15430289802527"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/builds/debug/15430289802527/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="15574880808831"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/builds/debug/15574880808831/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="15734873999450"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+
+</instant-run>

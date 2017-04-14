@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_e415a24402409c9227503006ac87f0f01923ebc7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_f8fdc7476c0bc93078e410e10388524c16264815/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_9f73fd1c3994b02c103b46d1db03426e1c4e8603/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_b13d96d1d852c383caad7c0ccb0883f276ce968d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_43c6d932f661bb1b65e05cfe21e335ee683beb83/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_f125a03d3997b2f41b987e0f995e57bfcea156e3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_0f1003c0e51094671aa8d1483d5d6733baeb6be8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_4164e9cb35337b580be51fef36b710f664ecba7d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_120eef216f44bb7ffec55170d61af2ecda7aeaa2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="136f32ca331ba7c1abf36eb625b9478db013632a">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ed67cdb25487257d8e7b82ad77198f08a1f0337d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="36533628d7f0ef60a2668af5206f4dbbec0ab283">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_4d683b3af209eefcb9ff2f5c7860ab15efab18f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/jarno/AndroidStudioProjects/SuomiFi/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_a97bbb62bb7eb5108badb2ef72edc451de063e00/classes.dex" />
+    </item>
+
+</items>

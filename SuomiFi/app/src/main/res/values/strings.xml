@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SuomiFi</string>
+    <string name="send_email">Lähetä sähköpostia</string>
+    <string name="goto_website">Siirry kotisivuille</string>
+    <string name="location_map">Sijainti kartalla</string>
+    <string name="financial_info">Taloustietoja</string>
+    <string name="general_info">Yleistietoja</string>
+    <string name="make_call">Soita</string>
+    <string name="Service_unavailable">Palvelu ei ole tällä hetkellä käytettävissä</string>
+    <string name="municipality_not_found">Kuntatietoa ei ole saatavilla valitsemallasi kielellä</string>
+
+    <string name="Organizations">Organisaatiot</string>
+    <string name="Services">Palvelut</string>
+    <string name="Links">Linkit</string>
+    <string name="Forms">Lomakkeet</string>
+    <string name="Muncipalities">Kunnat</string>
+
+    <string name="btn_Munciipalities">Kunnat</string>
+    <string name="btn_Organizations">Organisaatiot</string>
+    <string name="btn_Forms">Lomakkeet</string>
+    <string name="btn_Links">Linkit</string>
+
+
+</resources>
