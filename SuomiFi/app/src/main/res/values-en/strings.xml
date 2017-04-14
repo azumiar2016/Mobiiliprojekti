@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SuomiFi</string>
+    <string name="send_email">Send Email</string>
+    <string name="goto_website">Go to website</string>
+    <string name="location_map">Location on map</string>
+    <string name="financial_info">financial information</string>
+    <string name="general_info">General information</string>
+    <string name="make_call">Call</string>
+    <string name="Service_unavailable">Service is currently unavailable</string>
+
+    <string name="Organizations">Organizations</string>
+    <string name="Services">Services</string>
+    <string name="Links">Links</string>
+    <string name="Forms">Forms</string>
+    <string name="Municipalities">Municipalities</string>
+
+    <string name="btn_Municipalities">Municipalities</string>
+    <string name="btn_Organizations">Organizations</string>
+    <string name="btn_Forms">Forms</string>
+    <string name="btn_Links">Links</string>
+
+
+
+
+</resources>

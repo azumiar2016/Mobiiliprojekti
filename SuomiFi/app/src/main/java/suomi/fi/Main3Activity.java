@@ -38,11 +38,28 @@ public class Main3Activity extends AppCompatActivity {
         m_IntentKEYType = intentArray[0];
         m_UrlOID =  intentArray[1];
 
+<<<<<<< HEAD
         contentBuilder.BuildContent(m_IntentKEYType);
         url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
 
 
         new GetJSONData().execute();
+=======
+        contentBuilder.BuildContent(m_IntentKEYType, 0);
+        url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
+
+        // If opening a municipality, start new activity and finish this one
+        if(m_IntentKEYType.contains("KEYkunnat")){
+            Intent intentMunicipality = new Intent(this,MunicipalityActivity.class);
+
+            // Pass municipality oid to the new activity
+            intentMunicipality.putExtra("oid", m_UrlOID);
+            startActivity(intentMunicipality);
+            this.finish();
+        } else {
+            new GetJSONData().execute();
+        }
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
 
     }
 

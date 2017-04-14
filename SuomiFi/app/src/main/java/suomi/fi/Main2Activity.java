@@ -22,16 +22,29 @@ import java.util.Arrays;
 import java.util.List;
 import static android.content.ContentValues.TAG;
 
+<<<<<<< HEAD
 public class Main2Activity extends AppCompatActivity {
 
 
 
+=======
+/*
+ * Main2Activity lists the items for selected button
+ */
+public class Main2Activity extends AppCompatActivity {
+
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
     ContentBuilder contentBuilder = new ContentBuilder();
     ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
     String url;
     String jsonTAG;
     CustomUserAdapter adapter;
     JSONArray articleArrays;
+<<<<<<< HEAD
+=======
+
+    private int oidCounty;
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
     public String intentLock;
     public boolean fail = false;
 
@@ -42,9 +55,27 @@ public class Main2Activity extends AppCompatActivity {
 
 
         intentLock = getIntent().getExtras().getString(CustomAdapter.key);
+<<<<<<< HEAD
         url = contentBuilder.BuildContent(intentLock);
         jsonTAG = contentBuilder.m_JsonTAG;
 
+=======
+        Log.d("TAGI", "intentLock:" + intentLock);
+        //If key is KEYkunnat get county oid for listing the municipipalities of
+        // selected county
+        if(intentLock.contains("KEYkunnat")) {
+            String[] intentArray = getIntent().getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+            oidCounty =  Integer.parseInt(intentArray[1]);
+            contentBuilder = new ContentBuilder();
+            Log.d("TAGI", "oidCounty:" + oidCounty);
+        }
+        url = contentBuilder.BuildContent(intentLock, oidCounty);
+        Log.d("TAGI", "contentbuilder url: " + url);
+        jsonTAG = contentBuilder.m_JsonTAG;
+
+        Log.d("TAGI", "jsonTAG: " + jsonTAG);
+
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
 
         new GetJSONData().execute();
 
@@ -65,21 +96,40 @@ public class Main2Activity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             String jsonStr = sh.makeServiceCall(url);
 
+<<<<<<< HEAD
             Log.e(TAG, "Response from url: " + jsonStr);
+=======
+            Log.e("TAGI", "Response from url: " + jsonStr);
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
 
             //if json string exists
             if(jsonStr != null)
             {
                 try {
+<<<<<<< HEAD
 
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     articleArrays = jsonObj.getJSONArray(jsonTAG);
+=======
+                    Log.e("TAGI", "trying jsonTAG: " +jsonTAG);
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    if(jsonTAG.contains("municipalities")){
+                        JSONObject jsonObjsub = jsonObj.getJSONObject(jsonTAG);
+                        articleArrays = jsonObjsub.getJSONArray("municipality");
+                    } else {
+                        articleArrays = jsonObj.getJSONArray(jsonTAG);
+                    }
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
                     arrayOfArticles = Article.getArticles(articleArrays);
 
 
                 }catch (final JSONException e){
 
+<<<<<<< HEAD
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
+=======
+                    Log.e("TAGI", "Json parsing error1: " + e.getMessage());
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -107,7 +157,11 @@ public class Main2Activity extends AppCompatActivity {
             //if json string fails
             if(fail == true){
                 TextView tx = (TextView)findViewById(R.id.listTitle);
+<<<<<<< HEAD
                 tx.setText("Palvelu ei ole käytettäväissä tällä hetkellä");
+=======
+                tx.setText(getString(R.string.Service_unavailable));
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
             } else {
                 // Create the adapter to convert the array to views
                 adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
@@ -172,6 +226,10 @@ public class Main2Activity extends AppCompatActivity {
                     adapter.passIntentKey(intentLock);
                     listView.setAdapter(adapter);
                 }
+<<<<<<< HEAD
+=======
+                Log.d("TAGI", "arrayOfArticles: " + arrayOfArticles);
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
                 return false;
             }
         });

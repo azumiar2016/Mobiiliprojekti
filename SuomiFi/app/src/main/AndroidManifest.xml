@@ -18,7 +18,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity" />
+<<<<<<< HEAD
         <activity android:name=".Main3Activity"></activity>
+=======
+        <activity android:name=".Main3Activity" />
+        <activity android:name=".MunicipalityActivity"></activity>
+>>>>>>> 0c3db74bdd769648c6e1fa365b23a185fe2efc87
     </application>
 
 </manifest>
