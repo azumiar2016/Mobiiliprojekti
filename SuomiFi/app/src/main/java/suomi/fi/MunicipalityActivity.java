@@ -1,11 +1,15 @@
 package suomi.fi;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
@@ -19,8 +23,10 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
+import static suomi.fi.CustomAdapter.key;
 
 public class MunicipalityActivity extends AppCompatActivity {
 
@@ -51,7 +57,7 @@ public class MunicipalityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_municipality);
+        setContentView(R.layout.activity_municipality_jarno);
 
         txtTitle = (TextView)findViewById(R.id.textTitle);
         btnEmail = (Button)findViewById(R.id.btnEmail);
@@ -119,10 +125,12 @@ public class MunicipalityActivity extends AppCompatActivity {
                     });
 
                 }
-                municDetails = new MunicipalityDetail(details, "details");
-                municStatistics = new MunicipalityDetail(statistics, "statistics");
-                Log.d("TAGI", "municDetails: " + details );
-                Log.d("TAGI", "municStatistics: " + statistics );
+                if(title != null) {
+                    municDetails = new MunicipalityDetail(details, "details");
+                    municStatistics = new MunicipalityDetail(statistics, "statistics");
+                    Log.d("TAGI", "municDetails: " + details);
+                    Log.d("TAGI", "municStatistics: " + statistics);
+                }
 
             }
 
@@ -171,7 +179,7 @@ public class MunicipalityActivity extends AppCompatActivity {
 
                 btnMap.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="+municDetails.address));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="+title));
                         startActivity(intent);
                     }
                 });
@@ -186,8 +194,106 @@ public class MunicipalityActivity extends AppCompatActivity {
             else
             {
                 txtTitle.setText(R.string.municipality_not_found);
+                findViewById(R.id.municContent).setVisibility(View.INVISIBLE);
             }
-        }
 
+        }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d("TAGI", "Municipality Menu: ");
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem lang = menu.findItem(R.id.Settings);
+        menu.findItem(R.id.menuSearch).setVisible(false);
+
+
+        Log.d("TAGI", "Municipality Menu: ");
+        switch(Locale.getDefault().getLanguage()){
+            case "sv":
+                lang.setIcon(getResources().getDrawable(R.mipmap.ruotsi_item));
+                break;
+            case "en":
+                lang.setIcon(getResources().getDrawable(R.mipmap.englanti_item));
+                break;
+            default:
+                lang.setIcon(getResources().getDrawable(R.mipmap.suomi_item_2));
+                break;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // When menu item is selected
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case (R.id.Organizations):
+                Toast.makeText(this, getString(R.string.Organizations)+" selected", Toast.LENGTH_LONG).show();
+                Intent intent1 = new Intent(this, Main2Activity.class);
+                intent1.putExtra(key, "KEYorganisaatiot");
+                startActivity(intent1);
+                return true;
+            case (R.id.Municipalities):
+                Toast.makeText(this, getString(R.string.Municipalities)+ " selected", Toast.LENGTH_LONG).show();
+                intent1 = new Intent(this, Main2Activity.class);
+                intent1.putExtra(key, "KEYmaakunnat");
+                startActivity(intent1);
+                return true;
+            case (R.id.Forms):
+                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                intent1 = new Intent(this, Main2Activity.class);
+                intent1.putExtra(key, "KEYlomakkeet");
+                startActivity(intent1);
+                return true;
+            case (R.id.Links):
+                Toast.makeText(this, getString(R.string.Links)+ " selected", Toast.LENGTH_LONG).show();
+                intent1 = new Intent(this, Main2Activity.class);
+                intent1.putExtra(key, "KEYlinkit");
+                startActivity(intent1);
+                return true;
+            case (R.id.Settings):
+                Toast.makeText(this, getString(R.string.Settings)+ " selected", Toast.LENGTH_LONG).show();
+                return true;
+
+            case (R.id.en_language):
+                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                Locale locale = new Locale("en");
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+                return true;
+
+            case (R.id.fi_language):
+                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                locale = new Locale("fi");
+                Locale.setDefault(locale);
+                config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+                return true;
+
+            case (R.id.sv_language):
+                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                locale = new Locale("sv");
+                Locale.setDefault(locale);
+                config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                recreate();
+                return true;
+            /*case (R.id.Palvelut):
+                Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
+                return true;
+                */
+        }
+        return false;
+    }
+
 }

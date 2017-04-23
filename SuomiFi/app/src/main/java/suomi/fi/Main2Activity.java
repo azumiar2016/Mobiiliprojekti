@@ -3,7 +3,9 @@ package suomi.fi;
 import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,7 +49,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main2_jarno);
 
 
         intentLock = getIntent().getExtras().getString(key);
@@ -129,12 +131,22 @@ public class Main2Activity extends AppCompatActivity {
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-
+            TextView tx = (TextView)findViewById(R.id.listTitle);
             //if json string fails
             if(fail == true){
-                TextView tx = (TextView)findViewById(R.id.listTitle);
+
                 tx.setText(getString(R.string.Service_unavailable));
             } else {
+                Log.d("TAGI", "jsonTAG is:"+jsonTAG);
+                switch(jsonTAG){
+                    case "county":
+                        tx.setText(getString(R.string.Counties));
+                        break;
+                    case "municipalities":
+                        tx.setText(getString(R.string.Municipalities));
+                        break;
+                }
+                //tx.setText(getString(R.string.Service_unavailable));
                 // Create the adapter to convert the array to views
                 adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
                 adapter.passIntentKey(intentLock);
@@ -152,7 +164,23 @@ public class Main2Activity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
+        MenuItem lang = menu.findItem(R.id.Settings);
+
+        Log.d("TAGI", "LANG: "+Locale.getDefault().getLanguage());
+        switch(Locale.getDefault().getLanguage()){
+            case "sv":
+                lang.setIcon(getResources().getDrawable(R.mipmap.ruotsi_item));
+                break;
+            case "en":
+                lang.setIcon(getResources().getDrawable(R.mipmap.englanti_item));
+                break;
+            default:
+                lang.setIcon(getResources().getDrawable(R.mipmap.suomi_item_2));
+                break;
+        }
+
         SearchView searchView = (SearchView)item.getActionView();
+        searchView.setIconified(true);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

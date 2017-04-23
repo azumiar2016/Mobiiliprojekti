@@ -2,6 +2,7 @@ package suomi.fi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class CustomAdapter extends ArrayAdapter<Batch>
 {
 
     final static String key = "-";
+    private String[] tags = {"Maakunnat ja kunnat", "Organisaatiot", "Lomakkeet","Linkit"};
 
     public CustomAdapter(Context context, ArrayList<Batch> batches)
     {
@@ -38,7 +40,7 @@ public class CustomAdapter extends ArrayAdapter<Batch>
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
-
+        Log.d("TAGI", "positions:"+tags[position]);
         //Empty button
         Button button = (Button)convertView.findViewById(R.id.button);
 
@@ -57,7 +59,7 @@ public class CustomAdapter extends ArrayAdapter<Batch>
                 Batch batch = getItem(position);
 
                 // Set activity intent for selected button on Main2Activity
-                switch (batch.m_ButtonTag)
+                switch (tags[position])
                 {
                     /*case "Palveluluokat":
                         Intent intent = new Intent(view.getContext(), Main2Activity.class);
@@ -66,18 +68,18 @@ public class CustomAdapter extends ArrayAdapter<Batch>
                         break;*/
 
                     // List of counties
-                    case "Maakunnat":
+                    case "Maakunnat ja kunnat":
                         Intent intent1 = new Intent(view.getContext(), Main2Activity.class);
                         intent1.putExtra(key, "KEYmaakunnat");
                         view.getContext().startActivity(intent1);
                         break;
 
-                    // List of minucipalities in the selected county
+                    /*// List of minucipalities in the selected county
                     case "Kunnat":
                         Intent intent2 = new Intent(view.getContext(), Main2Activity.class);
                         intent2.putExtra(key, "KEYkunnat");
                         view.getContext().startActivity(intent2);
-                        break;
+                        break;*/
 
                    /* case "Asiasanat":
                         Intent intent3 = new Intent(view.getContext(), Main2Activity.class);

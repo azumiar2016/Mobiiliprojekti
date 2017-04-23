@@ -9,19 +9,33 @@
     <string name="Service_unavailable">Service is currently unavailable</string>
     <string name="municipality_not_found">Municipality information not available in your language</string>
 
+    <string name="btn_Counties_and_Municipaties">Counties ja municipalities</string>
+    <string name="btn_Organizations">Organizations</string>
+    <string name="btn_Forms">Forms</string>
+    <string name="btn_Links">Links</string>
+
+
     <string name="Organizations">Organizations</string>
     <string name="Services">Services</string>
     <string name="Links">Links</string>
     <string name="Forms">Forms</string>
     <string name="Municipalities">Municipalities</string>
+    <string name="Counties">Counties</string>
+
     <string name="Settings">Settings</string>
 
-    <string name="btn_Municipalities">Municipalities</string>
-    <string name="btn_Organizations">Organizations</string>
-    <string name="btn_Forms">Forms</string>
-    <string name="btn_Links">Links</string>
 
     <string name="Read_more">Read More >></string>
+
+    <!-- Jarno layout start-->
+    <string name="activity_main_info">
+        Municipality data, non-profit\n
+        organizations and public authority application forms\n
+        conveniently to your phone!
+    </string>
+    <string name="activity_main_title">Select a category</string>
+
+    <!-- Jarno layout end-->
 
 
 </resources>

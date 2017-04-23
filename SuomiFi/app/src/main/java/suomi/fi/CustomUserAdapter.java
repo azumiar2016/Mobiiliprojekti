@@ -26,6 +26,7 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
 
     String m_IntentKey;
     String m_ArticleOID;
+    int m_position;
 
     public void passIntentKey(String key)
     {
@@ -36,6 +37,7 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         Article article = getItem(position);
+        m_position = position;
 
         // Check if an existing view is being reused, otherwise inflate the view
 
@@ -44,14 +46,15 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
         }
         // Lookup view for data population
-        final TextView tvArticle = (TextView) convertView.findViewById(R.id.tvArticle);
+        TextView tvArticle = (TextView) convertView.findViewById(R.id.tvArticle);
+
         // Populate the data into the template view using the data object
         tvArticle.setText(article.articleName);
+        tvArticle.setTag(position);
 
-
-        Button btButton = (Button)convertView.findViewById(R.id.button);
-        btButton.setTag(position);
-        btButton.setOnClickListener(new View.OnClickListener()
+        //Button btButton = (Button)convertView.findViewById(R.id.button);
+        //btButton.setTag(position);
+        tvArticle.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)

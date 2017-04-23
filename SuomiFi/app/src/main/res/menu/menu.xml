@@ -14,15 +14,14 @@
     <item
         android:title="@string/Municipalities"
         android:id="@+id/Municipalities"
-        app:showAsAction="ifRoom"
-       >
+        app:showAsAction="never">
 
     </item>
 
     <item
         android:title="@string/Organizations"
         android:id="@+id/Organizations"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         >
 
     </item>
@@ -30,7 +29,7 @@
     <item
         android:title="@string/Forms"
         android:id="@+id/Forms"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         >
 
     </item>
@@ -38,7 +37,7 @@
     <item
         android:title="@string/Links"
         android:id="@+id/Links"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         >
 
     </item>

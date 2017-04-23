@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="suomi.fi.MunicipalityActivity"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:id="@+id/municContent">
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnWebsite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/activity_municipatily_button"
+            android:drawableStart="@mipmap/btn_www"
+            android:text="@string/goto_website"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGeneral"
+            android:drawableStart="@mipmap/btn_data"
+            style="@style/activity_municipatily_button"
+            android:text="@string/general_info"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnFinancial"
+            style="@style/activity_municipatily_button"
+            android:drawableStart="@mipmap/btn_euro"
+            android:text="@string/financial_info"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnMap"
+            style="@style/activity_municipatily_button"
+            android:drawableStart="@mipmap/btn_map"
+            android:text="@string/location_map"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnPhoneCall"
+                style="@style/activity_municipality_phone_button"
+                android:text="@string/make_call"/>
+            <Button
+                android:id="@+id/btnEmail"
+                style="@style/activity_municipality_email_button"
+                android:text="@string/send_email"/>
+
+        </LinearLayout>
+   </LinearLayout>
+</LinearLayout>
