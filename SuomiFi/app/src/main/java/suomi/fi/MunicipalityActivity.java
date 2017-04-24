@@ -11,18 +11,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
@@ -57,7 +52,7 @@ public class MunicipalityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_municipality_jarno);
+        setContentView(R.layout.activity_municipality);
 
         txtTitle = (TextView)findViewById(R.id.textTitle);
         btnEmail = (Button)findViewById(R.id.btnEmail);
