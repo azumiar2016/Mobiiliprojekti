@@ -49,17 +49,29 @@ public class Main3Activity extends AppCompatActivity {
             intentMunicipality.putExtra("oid", m_UrlOID);
             startActivity(intentMunicipality);
             this.finish();
-        }else
-            // If opening a form, start new FormActivity and finish this one
-            if(m_IntentKEYType.contains("KEYlomakkeet")) {
-                Intent intentForm = new Intent(this, FormActivity.class);
-                // Pass form oid to the new activity
-                intentForm.putExtra("oid", m_ArticleString);
-                startActivity(intentForm);
-                this.finish();
-            } else {
-                new GetJSONData().execute();
-            }
+        }
+        if(m_IntentKEYType.contains("KEYlomakkeet")){
+            Intent intentForm = new Intent(this,FormActivity.class);
+
+            // Pass form oid to the new activity
+            intentForm.putExtra("oid", m_UrlOID);
+            startActivity(intentForm);
+            this.finish();
+        }
+        if(m_IntentKEYType.contains("KEYlinkit")){
+            Intent intentForm = new Intent(this,LinkActivity.class);
+
+            // Pass link oid to the new activity
+            intentForm.putExtra("oid", m_UrlOID);
+            startActivity(intentForm);
+            this.finish();
+        }
+        else
+
+        {
+            new GetJSONData().execute();
+        }
+
     }
 
     private class GetJSONData extends AsyncTask<Void, Void, Void> {

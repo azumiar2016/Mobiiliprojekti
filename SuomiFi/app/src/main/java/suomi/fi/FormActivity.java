@@ -1,32 +1,39 @@
 package suomi.fi;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
+import static suomi.fi.CustomAdapter.key;
 
 public class FormActivity extends AppCompatActivity {
 
-    public String title;
-    public JSONObject details;
+    public String oid;
+    public String description;
+    public String form;
     String url;
-    String m_ArticleString;
-    FormDetail Details;
     TextView textTitle;
     TextView textDescription;
     Button btnCorporate;
     Button btnForm;
+    String m_UrlOID;
+    FormDetail Forms;
+    public JSONObject forms;
     ContentBuilder contentBuilder = new ContentBuilder();
 
     @Override
@@ -41,10 +48,11 @@ public class FormActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        m_ArticleString = intent.getStringExtra("oid");
+        String[] intentArray = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+        m_UrlOID = intent.getStringExtra("oid");
 
         contentBuilder.BuildContent("KEYlomakkeet", 0);
-        url = contentBuilder.oidURL[0] + m_ArticleString + contentBuilder.apiKEY;
+        url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
 
         Log.d("TAGI", "FormActivity started with url: " + url);
 
@@ -67,12 +75,13 @@ public class FormActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(url);
             JSONObject jsonObj = new JSONObject();
             Log.e("TAGI", "Response from url: " + jsonStr);
-            if (!jsonStr.contains("No forms found")) {
+
+                //if json string exists
+                if(jsonStr != null)
                 try {
-
-                    title = jsonObj.getString("title");
-                    details = new JSONObject(jsonObj.getString("details"));
-
+                    jsonObj = new JSONObject(jsonStr);
+                    oid = jsonObj.getString("oid");
+                    forms = new JSONObject(jsonObj.getString("forms"));
                 } catch (final JSONException e) {
 
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -85,39 +94,130 @@ public class FormActivity extends AppCompatActivity {
                         }
                     });
 
+                    if(oid != null) {
+                        Forms = new FormDetail(forms, "forms");
+                        Log.d("TAGI", "municDetails: " + forms);
+                    }
                 }
-                Details = new FormDetail(details, "details");
-                Log.d("TAGI", "Details: " + details);
-            }
 
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            Log.d("TAGI", "title: " + title);
+            Log.d("TAGI", "oid: " + oid);
             super.onPostExecute(result);
-            if (title != null) {
-                textTitle.setText(title);
-                textDescription.setText(Details.description);
+            if (oid != null) {
+                textTitle.setText(Forms.title);
+                textDescription.setText(description);
 
-                btnCorporate.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Details.cor_url));
-                        startActivity(intent);
-                    }
-                });
                 btnForm.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Details.for_url));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Forms.form));
                         startActivity(intent);
                     }
                 });
             } else {
                 textTitle.setText("Form not found");
             }
+
         }
-
-
     }
-}
+            @Override
+            public boolean onCreateOptionsMenu(Menu menu) {
+                Log.d("TAGI", "Form Menu: ");
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu, menu);
+                MenuItem lang = menu.findItem(R.id.Settings);
+                menu.findItem(R.id.menuSearch).setVisible(false);
+
+
+                Log.d("TAGI", "Form Menu: ");
+                switch(Locale.getDefault().getLanguage()){
+                    case "sv":
+                        lang.setIcon(getResources().getDrawable(R.mipmap.ruotsi_item));
+                        break;
+                    case "en":
+                        lang.setIcon(getResources().getDrawable(R.mipmap.englanti_item));
+                        break;
+                    default:
+                        lang.setIcon(getResources().getDrawable(R.mipmap.suomi_item_2));
+                        break;
+                }
+                return super.onCreateOptionsMenu(menu);
+            }
+
+            // When menu item is selected
+            @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
+                super.onOptionsItemSelected(item);
+                switch (item.getItemId()) {
+                    case (R.id.Organizations):
+                        Toast.makeText(this, getString(R.string.Organizations)+" selected", Toast.LENGTH_LONG).show();
+                        Intent intent1 = new Intent(this, Main2Activity.class);
+                        intent1.putExtra(key, "KEYorganisaatiot");
+                        startActivity(intent1);
+                        return true;
+                    case (R.id.Municipalities):
+                        Toast.makeText(this, getString(R.string.Municipalities)+ " selected", Toast.LENGTH_LONG).show();
+                        intent1 = new Intent(this, Main2Activity.class);
+                        intent1.putExtra(key, "KEYmaakunnat");
+                        startActivity(intent1);
+                        return true;
+                    case (R.id.Forms):
+                        Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                        intent1 = new Intent(this, Main2Activity.class);
+                        intent1.putExtra(key, "KEYlomakkeet");
+                        startActivity(intent1);
+                        return true;
+                    case (R.id.Links):
+                        Toast.makeText(this, getString(R.string.Links)+ " selected", Toast.LENGTH_LONG).show();
+                        intent1 = new Intent(this, Main2Activity.class);
+                        intent1.putExtra(key, "KEYlinkit");
+                        startActivity(intent1);
+                        return true;
+                    case (R.id.Settings):
+                        Toast.makeText(this, getString(R.string.Settings)+ " selected", Toast.LENGTH_LONG).show();
+                        return true;
+
+                    case (R.id.en_language):
+                        Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                        Locale locale = new Locale("en");
+                        Locale.setDefault(locale);
+                        Configuration config = new Configuration();
+                        config.locale = locale;
+                        getBaseContext().getResources().updateConfiguration(config,
+                                getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        return true;
+
+                    case (R.id.fi_language):
+                        Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                        locale = new Locale("fi");
+                        Locale.setDefault(locale);
+                        config = new Configuration();
+                        config.locale = locale;
+                        getBaseContext().getResources().updateConfiguration(config,
+                                getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        return true;
+
+                    case (R.id.sv_language):
+                        Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
+                        locale = new Locale("sv");
+                        Locale.setDefault(locale);
+                        config = new Configuration();
+                        config.locale = locale;
+                        getBaseContext().getResources().updateConfiguration(config,
+                                getBaseContext().getResources().getDisplayMetrics());
+                        recreate();
+                        return true;
+            /*case (R.id.Palvelut):
+                Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
+                return true;
+                */
+                }
+                return false;
+            }
+
+        }
