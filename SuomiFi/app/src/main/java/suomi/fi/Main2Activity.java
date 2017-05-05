@@ -232,6 +232,8 @@ public class Main2Activity extends AppCompatActivity {
 
                 if(newText.length() == 0){
                     Intent intent1 = new Intent(Main2Activity.this, Main2Activity.class);
+                    String[] intentPacket = new String[] {intentLock, String.valueOf(oidCounty), titleCounty};
+                    intent1.putExtra(MainActivity.EXTRA_MESSAGE, intentPacket);
                     intent1.putExtra(key, intentLock);
                     startActivity(intent1);
                     finish();
