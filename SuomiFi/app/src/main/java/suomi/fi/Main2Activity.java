@@ -1,5 +1,6 @@
 package suomi.fi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -20,8 +21,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import static suomi.fi.ButtonAdapter.key;
 
-import static suomi.fi.CustomAdapter.key;
 
 /*
  * Main2Activity lists the items for selected button
@@ -29,20 +30,26 @@ import static suomi.fi.CustomAdapter.key;
 public class Main2Activity extends AppCompatActivity {
 
     ContentBuilder contentBuilder = new ContentBuilder();
-    ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
+    static ArrayList<Article> arrayOfArticles = new ArrayList<Article>();
     String url;
     String jsonTAG;
     CustomUserAdapter adapter;
-    JSONArray articleArrays;
+    static JSONArray articleArrays;
 
     private int oidCounty;
     public String intentLock;
+    public String titleCounty;
     public boolean fail = false;
+
+    MenuClass mymenu;
+    SearchThread mysearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        mymenu = new MenuClass(this);
+        mysearch=null;
 
 
         intentLock = getIntent().getExtras().getString(key);
@@ -52,6 +59,7 @@ public class Main2Activity extends AppCompatActivity {
         if(intentLock.contains("KEYkunnat")) {
             String[] intentArray = getIntent().getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
             oidCounty =  Integer.parseInt(intentArray[1]);
+            titleCounty =  intentArray[2];
             contentBuilder = new ContentBuilder();
             Log.d("TAGI", "oidCounty:" + oidCounty);
         }
@@ -66,11 +74,40 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if(savedInstanceState!=null) {
+            String lang= savedInstanceState.getString("lang");
+            if(lang!=null) {
+                Locale locale = new Locale(lang);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        String lang=mymenu.ln;
+        outState.putString("lang",lang);
+        super.onSaveInstanceState(outState);
+
+    }
+
     private class GetJSONData extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(Main2Activity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(Main2Activity.this,getString(R.string.Toast_JSON_getting_data),Toast.LENGTH_LONG).show();
 
         }
 
@@ -105,7 +142,7 @@ public class Main2Activity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
+                                    getString(R.string.Toast_JSON_parsing_error) + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
@@ -136,7 +173,16 @@ public class Main2Activity extends AppCompatActivity {
                         tx.setText(getString(R.string.Counties));
                         break;
                     case "municipalities":
-                        tx.setText(getString(R.string.Municipalities));
+                        tx.setText(titleCounty + ": " + getString(R.string.Municipalities));
+                        break;
+                    case "organization":
+                        tx.setText(getString(R.string.btn_Organizations));
+                        break;
+                    case "form":
+                        tx.setText(getString(R.string.btn_Forms));
+                        break;
+                    case "link":
+                        tx.setText(getString(R.string.Links));
                         break;
                 }
                 //tx.setText(getString(R.string.Service_unavailable));
@@ -159,18 +205,8 @@ public class Main2Activity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.menuSearch);
         MenuItem lang = menu.findItem(R.id.Settings);
 
-        Log.d("TAGI", "LANG: "+Locale.getDefault().getLanguage());
-        switch(Locale.getDefault().getLanguage()){
-            case "sv":
-                lang.setIcon(getResources().getDrawable(R.mipmap.ruotsi_item));
-                break;
-            case "en":
-                lang.setIcon(getResources().getDrawable(R.mipmap.englanti_item));
-                break;
-            default:
-                lang.setIcon(getResources().getDrawable(R.mipmap.suomi_item_2));
-                break;
-        }
+        mymenu.MenuFlag(lang, mymenu.ln);
+
 
         SearchView searchView = (SearchView)item.getActionView();
         searchView.setIconified(true);
@@ -184,42 +220,22 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                // if search string length > 1
-                if(newText.length() > 1) {
+                // Search in Thread
+                mysearch = new SearchThread(newText, Main2Activity.this);
+                mysearch.start();
 
-                    //reset array list
-                    arrayOfArticles = new ArrayList<Article>();
+                //List results
+                ListView listView = (ListView) findViewById(R.id.list2);
+                adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
+                adapter.passIntentKey(intentLock);
+                listView.setAdapter(adapter);
 
-                    //loop all articles
-                    for(int i = 0; i < articleArrays.length(); i++) {
-                        try {
-
-                            //get single article object
-                            JSONObject json_data = articleArrays.getJSONObject(i);
-
-                            //get article title
-                            //note: change this string to lower case to avoid case sensitive issue
-                            String title = json_data.getString("@title").toLowerCase();
-
-                            //if title contains the search string...
-                            //note: change this string to lower case too
-                            if(title.contains(newText.toLowerCase())) {
-
-                                // add article on the ArrayList
-                                arrayOfArticles.add( Article.getJSONobject(json_data));
-                            }
-                        }catch (final JSONException e){
-                            Log.e("DEBUG", "Json parsing error: " + e.getMessage());
-                        }
-                    }
-
-                    // Attach the adapter to a ListView
-                    ListView listView = (ListView) findViewById(R.id.list2);
-                    adapter = new CustomUserAdapter(Main2Activity.this, arrayOfArticles);
-                    adapter.passIntentKey(intentLock);
-                    listView.setAdapter(adapter);
+                if(newText.length() == 0){
+                    Intent intent1 = new Intent(Main2Activity.this, Main2Activity.class);
+                    intent1.putExtra(key, intentLock);
+                    startActivity(intent1);
+                    finish();
                 }
-                Log.d("TAGI", "arrayOfArticles: " + arrayOfArticles);
                 return false;
             }
         });
@@ -232,73 +248,8 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case (R.id.Organizations):
-                Toast.makeText(this, getString(R.string.Organizations)+" selected", Toast.LENGTH_LONG).show();
-                Intent intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYorganisaatiot");
-                startActivity(intent1);
-                return true;
-            case (R.id.Municipalities):
-                Toast.makeText(this, getString(R.string.Municipalities)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYmaakunnat");
-                startActivity(intent1);
-                return true;
-            case (R.id.Forms):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYlomakkeet");
-                startActivity(intent1);
-                return true;
-            case (R.id.Links):
-                Toast.makeText(this, getString(R.string.Links)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYlinkit");
-                startActivity(intent1);
-                return true;
-            case (R.id.Settings):
-                Toast.makeText(this, getString(R.string.Settings)+ " selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case (R.id.en_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                Locale locale = new Locale("en");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-
-            case (R.id.fi_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                locale = new Locale("fi");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-
-            case (R.id.sv_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                locale = new Locale("sv");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-            /*case (R.id.Palvelut):
-                Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
-                return true;
-                */
-        }
-        return false;
+        mymenu.SelectItem(item.getItemId());
+        return true;
     }
 
 

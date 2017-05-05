@@ -1,18 +1,14 @@
 package suomi.fi;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import static android.content.ContentValues.TAG;
 
@@ -22,13 +18,19 @@ public class Main3Activity extends AppCompatActivity {
     String m_ArticleString;
     String m_IntentKEYType;
     String url;
+    String m_Title;
     ContentBuilder contentBuilder = new ContentBuilder();
+
+
+    String[] urlSTRINGS = new String[255];
+    String[] buttonArray = new String[255];
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -37,31 +39,25 @@ public class Main3Activity extends AppCompatActivity {
 
         m_IntentKEYType = intentArray[0];
         m_UrlOID =  intentArray[1];
+        m_Title = intentArray[1];
 
-        contentBuilder.BuildContent(m_IntentKEYType, 0);
+        contentBuilder.BuildContent(m_IntentKEYType,0);
         url = contentBuilder.oidURL[0] + m_UrlOID + contentBuilder.apiKEY;
 
-        // If opening a municipality, start new activity and finish this one
-        if(m_IntentKEYType.contains("KEYkunnat")){
-            Intent intentMunicipality = new Intent(this,MunicipalityActivity.class);
 
-            // Pass municipality oid to the new activity
-            intentMunicipality.putExtra("oid", m_UrlOID);
-            startActivity(intentMunicipality);
-            this.finish();
-        } else {
             new GetJSONData().execute();
         }
 
-    }
+
+
 
     private class GetJSONData extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
         }
+
 
         @Override
         protected Void doInBackground(Void... arg0)
@@ -89,17 +85,16 @@ public class Main3Activity extends AppCompatActivity {
 
                         case "KEYorganisaatiot":
                             m_ArticleString = Article.getArticle("contacturl",jsonObj);
+                            m_ArticleString = Article.getArticle("contacturl",jsonObj);
+                            urlSTRINGS[0] = Article.getArticle("title", jsonObj);
+                            urlSTRINGS[1] = Article.getArticle("externalurl", jsonObj);
+                            urlSTRINGS[2] = Article.getArticle("contacturl", jsonObj);
+
+                            buttonArray[0] = "Kotisivut";
+                            buttonArray[1] = "Yhteystiedot";
+
                             break;
 
-                        case "KEYlinkit":
-                            m_ArticleString = Article.getArticle("externalurl",jsonObj);
-                            break;
-
-                        case "KEYlomakkeet":
-                            m_ArticleString = Article.getArticle("url",jsonObj);
-                            break;
-
-                            //dismissingASIASANAT
 
                     }
 
@@ -111,7 +106,7 @@ public class Main3Activity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
+                                    getString(R.string.Toast_JSON_parsing_error) + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
@@ -125,21 +120,37 @@ public class Main3Activity extends AppCompatActivity {
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-            //TextView textView = (TextView) findViewById(R.id.textView);
-            //Resources res = getResources();
-            //String text = String.format(res.getString(R.string.description), m_ArticleString);
-            //textView.setText(text);
 
-            // create webview for displaying html page
-            WebView webview = new WebView(Main3Activity.this);
-            setContentView(webview);
+            Intent intent1 = null;
 
-            // parse html string by removing xml-tag
-            m_ArticleString = m_ArticleString.replace("]]>", "");
-            m_ArticleString = m_ArticleString.replace("<![CDATA[", "");
+            switch (m_IntentKEYType) {
+                case "KEYorganisaatiot":
+                    intent1 = new Intent(Main3Activity.this, OrganizationActivity.class);
+                    intent1.putExtra(MainActivity.EXTRA_MESSAGE, urlSTRINGS);
+                    break;
+                case "KEYlomakkeet":
+                    intent1 = new Intent(Main3Activity.this, FormActivity.class);
+                    intent1.putExtra("oid", m_UrlOID);
+                    break;
 
-            //load html string to tje webview
-            webview.loadData(m_ArticleString, "text/html", null);
+                case "KEYlinkit":
+                    intent1 = new Intent(Main3Activity.this, LinkActivity.class);
+                    intent1.putExtra("oid", m_UrlOID);
+                    break;
+
+                case "KEYkunnat":
+                    intent1 = new Intent(Main3Activity.this, MunicipalityActivity.class);
+                    intent1.putExtra("oid", m_UrlOID);
+                    break;
+            }
+           // intent1.putExtra(MainActivity.EXTRA_MESSAGE2, buttonArray);
+            if(intent1 != null) {
+                startActivity(intent1);
+                finish();
+            }
+
+
+
         }
 
     }

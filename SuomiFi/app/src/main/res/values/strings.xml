@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SuomiFi</string>
+    <string name="app_name">Suomi Palvelut</string>
     <string name="send_email">Lähetä sähköpostia</string>
     <string name="goto_website">Siirry kotisivuille</string>
     <string name="location_map">Sijainti kartalla</string>
@@ -9,22 +9,41 @@
     <string name="make_call">Soita</string>
     <string name="Service_unavailable">Palvelu ei ole tällä hetkellä käytettävissä</string>
     <string name="municipality_not_found">Kuntatietoa ei ole saatavilla valitsemallasi kielellä</string>
+    <string name="form_not_found">Lomaketietoa ei ole saatavilla valitsemallasi kielellä</string>
 
     <string name="Organizations">Organisaatiot</string>
     <string name="Services">Palvelut</string>
-    <string name="Links">Linkit</string>
+    <string name="Links">Tietolinkit</string>
     <string name="Forms">Lomakkeet</string>
     <string name="Municipalities">Kunnat</string>
     <string name="Counties">Maakunnat</string>
     <string name="Settings">Asetukset</string>
+    <string name="Mainmenu">Päävalikko</string>
 
     <string name="btn_Counties_and_Municipaties">Maakunnat ja kunnat</string>
     <string name="btn_Organizations">Organisaatiot</string>
+    <string name="show_organization">Näytä organisaatio</string>
+    <string name="show_municipality">Näytä kuntatiedot</string>
     <string name="btn_Forms">Lomakkeet</string>
     <string name="btn_Links">Linkit</string>
-
+    <string name="link_supplier">Palvelun tarjoaa: </string>
+    <string name="link_belongs_to_municipality">Tietolinkki liittyy kuntaan: </string>
+    <string name="link_belongs_to_municipalities">Tietolinkki liittyy kuntiin: </string>
     <string name="Read_more">Lue Lisää >></string>
 
+    <string name="btn_Weather">Paikallinen sää</string>
+    <string name="Weather_Temperature">Lämpötila:\u0020</string>
+    <string name="Weather_Temperature_2">\u0020astetta</string>
+    <string name="Weather_Wind">Tuulen nopeus:\u0020</string>
+    <string name="Weather_Wind_2">\u0020m/s</string>
+    <string name="Weather_Humidity">Ilmankosteus:\u0020</string>
+    <string name="Weather_Humidity_2">\u0020%</string>
+    <string name="Weather_Time">Aika:\u0020</string>
+    <string name="Weather_Location">Paikkakunta:\u0020</string>
+
+
+    <string name="Toast_JSON_parsing_error">Ongelma datan käsittelyssä</string>
+    <string name="Toast_JSON_getting_data">Haetaan tietoa</string>
     <!-- Jarno layout start-->
     <string name="activity_main_info">
         Kuntatiedot, yleishyödylliset\n
@@ -32,7 +51,25 @@
         kätevästi kännykkään!
     </string>
     <string name="activity_main_title">Valitse kategoria</string>
+    <string name="load_form">Avaa lomakesivu</string>
+    <string name="load_link">Avaa linkki</string>
 
     <!-- Jarno layout end-->
+
+    <!-- About layout start -->
+    <string name="about">Tietoja</string>
+    <string name="authors_title">Tekijät:</string>
+    <string name="authors_text">OAMK/TVT15SMO 2017\n
+        Johanna Länsivuori\n
+        Tomi Kenkkilä\n
+        Jarno Mattila\n
+        Ville Pelto
+    </string>
+    <string name="copyright_title">Oikeudelliset tiedot:</string>
+    <string name="copyright_text">Tieto on tuotu Väestörekisterikeskuksen tuottamasta Suomi.fi-portaalista.</string>
+    <string name="back">Takaisin</string>
+    <!-- About layout end -->
+
+
 
 </resources>

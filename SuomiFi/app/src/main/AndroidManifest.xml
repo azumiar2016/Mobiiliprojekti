@@ -10,22 +10,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"
-                    android:configChanges="locale"
-                    />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:configChanges="locale" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity"
-            android:configChanges="locale"/>
-        <activity android:name=".Main3Activity"
-            android:configChanges="locale"/>
-        <activity android:name=".MunicipalityActivity"
-            android:configChanges="locale"></activity>
+        <activity
+            android:name=".Main2Activity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".Main3Activity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".MunicipalityActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".FormActivity"
+            android:configChanges="locale" />
+        <activity
+            android:name=".LinkActivity"
+            android:configChanges="locale" />
+        <activity android:name=".OrganizationActivity" />
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

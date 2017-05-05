@@ -72,7 +72,7 @@ public class CustomUserAdapter extends ArrayAdapter<Article>
                 if(m_IntentKey.contains("KEYmaakunnat")){
                     Log.d("TAGI", "KEYmaakunnat selected: ");
                     intent = new Intent(view.getContext(), Main2Activity.class);
-                    intentPacket = new String[] {m_IntentKey, m_ArticleOID};
+                    intentPacket = new String[] {m_IntentKey, m_ArticleOID, article.articleName};
                     intent.putExtra("-", "KEYkunnat");
                 }
                 // Otherwise set intent to Main3Activity (Article)

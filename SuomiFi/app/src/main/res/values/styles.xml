@@ -12,7 +12,7 @@
     <style name="activity_main_info">
         <item name="android:gravity">center</item>
         <item name="android:padding">10pt</item>
-        <item name="android:textSize">34px</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="activity_main_title">
@@ -23,6 +23,9 @@
 
     <style name="activity_main_button">
         <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10sp</item>
         <item name="android:background">@mipmap/btn_grey_blue</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:shadowColor">#000000</item>
@@ -69,5 +72,20 @@
         <item name="android:textSize">25sp</item>
     </style>
     <!-- Jarno layout end-->
+
+    <!-- Jarno about start -->
+    <style name="activity_about_left">
+        <item name="android:padding">10pt</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:minWidth">150dp</item>
+        <item name="android:maxWidth">150dp</item>
+    </style>
+    <style name="activity_about_right">
+        <item name="android:padding">10pt</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+    <!-- Jarno about end -->
 
 </resources>

@@ -8,6 +8,7 @@
     <string name="make_call">Call</string>
     <string name="Service_unavailable">Service is currently unavailable</string>
     <string name="municipality_not_found">Municipality information not available in your language</string>
+    <string name="form_not_found">Form information not available in your language</string>
 
     <string name="btn_Counties_and_Municipaties">Counties ja municipalities</string>
     <string name="btn_Organizations">Organizations</string>
@@ -16,12 +17,31 @@
 
 
     <string name="Organizations">Organizations</string>
+    <string name="show_organization">Show organization</string>
+    <string name="show_municipality">Show the municipality</string>
     <string name="Services">Services</string>
-    <string name="Links">Links</string>
+    <string name="Links">Informative Links</string>
+    <string name="link_supplier">Supplier</string>
+    <string name="link_belongs_to_municipality">This information belongs to municipality: </string>
+    <string name="link_belongs_to_municipalities">This information belongs to the municipalities: </string>
+
+    <string name="btn_Weather">Local Weather</string>
+    <string name="Weather_Temperature">Temperature:\u0020</string>
+    <string name="Weather_Temperature_2">\u0020Degrees celcius</string>
+    <string name="Weather_Wind">Wind Speed:\u0020</string>
+    <string name="Weather_Wind_2">\u0020m/s</string>
+    <string name="Weather_Humidity">Humidity:\u0020</string>
+    <string name="Weather_Humidity_2">\u0020%</string>
+    <string name="Weather_Time">Time:\u0020</string>
+    <string name="Weather_Location">Location:\u0020</string>
+
+    <string name="Toast_JSON_parsing_error">Problems with data</string>
+    <string name="Toast_JSON_getting_data">Getting data</string>
+
     <string name="Forms">Forms</string>
     <string name="Municipalities">Municipalities</string>
     <string name="Counties">Counties</string>
-
+    <string name="Mainmenu">Mainmenu</string>
     <string name="Settings">Settings</string>
 
 
@@ -34,8 +54,21 @@
         conveniently to your phone!
     </string>
     <string name="activity_main_title">Select a category</string>
-
+    <string name="load_form">Go to the form page</string>
+    <string name="load_link">Go to the webpage</string>
     <!-- Jarno layout end-->
 
+    <!-- About layout start -->
+    <string name="about">About</string>
+    <string name="authors_text">OAMK/TVT15SMO 2017\n
+        Johanna Länsivuori\n
+        Tomi Kenkkilä\n
+        Jarno Mattila\n
+        Ville Pelto
+    </string>
+    <string name="copyright_title">Legal notice:</string>
+    <string name="copyright_text">Data is provided by Population Register Centre on Suomi.fi portal.</string>
+    <string name="back">Back</string>
+    <!-- About layout end -->
 
 </resources>

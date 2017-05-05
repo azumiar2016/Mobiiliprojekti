@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
-import static suomi.fi.CustomAdapter.key;
+import static suomi.fi.ButtonAdapter.key;
 
 public class MunicipalityActivity extends AppCompatActivity {
 
@@ -43,16 +43,22 @@ public class MunicipalityActivity extends AppCompatActivity {
     Button btnFinancial;
     Button btnMap;
     Button btnCall;
+    Button btnWeather;
     String m_UrlOID;
     String m_ArticleString;
     String m_IntentKEYType;
     String url;
+
     ContentBuilder contentBuilder = new ContentBuilder();
+
+    MenuClass mymenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_municipality);
+
+        mymenu = new MenuClass(this);
 
         txtTitle = (TextView)findViewById(R.id.textTitle);
         btnEmail = (Button)findViewById(R.id.btnEmail);
@@ -65,6 +71,7 @@ public class MunicipalityActivity extends AppCompatActivity {
         btnFinancial = (Button)findViewById(R.id.btnFinancial);
         btnMap = (Button)findViewById(R.id.btnMap);
         btnCall = (Button)findViewById(R.id.btnPhoneCall);
+        btnWeather = (Button)findViewById(R.id.btnweather);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -80,6 +87,35 @@ public class MunicipalityActivity extends AppCompatActivity {
         Log.d("TAGI", "MunicipalityActivity started with url: " +url );
 
         new GetJSONData().execute();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if(savedInstanceState!=null) {
+            String lang= savedInstanceState.getString("lang");
+            if(lang!=null) {
+                Locale locale = new Locale(lang);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        String lang=mymenu.ln;
+        outState.putString("lang",lang);
+        super.onSaveInstanceState(outState);
+
     }
 
     private class GetJSONData extends AsyncTask<Void, Void, Void> {
@@ -114,7 +150,7 @@ public class MunicipalityActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
+                                    getString(R.string.Toast_JSON_parsing_error) + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
@@ -185,6 +221,14 @@ public class MunicipalityActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
+                btnWeather.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MunicipalityActivity.this, WeatherActivity.class);
+                        intent.putExtra("municipality",title);
+                        startActivity(intent);
+                    }
+                });
             }
             else
             {
@@ -196,25 +240,11 @@ public class MunicipalityActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("TAGI", "Municipality Menu: ");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem lang = menu.findItem(R.id.Settings);
         menu.findItem(R.id.menuSearch).setVisible(false);
-
-
-        Log.d("TAGI", "Municipality Menu: ");
-        switch(Locale.getDefault().getLanguage()){
-            case "sv":
-                lang.setIcon(getResources().getDrawable(R.mipmap.ruotsi_item));
-                break;
-            case "en":
-                lang.setIcon(getResources().getDrawable(R.mipmap.englanti_item));
-                break;
-            default:
-                lang.setIcon(getResources().getDrawable(R.mipmap.suomi_item_2));
-                break;
-        }
+        mymenu.MenuFlag(lang, mymenu.ln);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -222,73 +252,8 @@ public class MunicipalityActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        switch (item.getItemId()) {
-            case (R.id.Organizations):
-                Toast.makeText(this, getString(R.string.Organizations)+" selected", Toast.LENGTH_LONG).show();
-                Intent intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYorganisaatiot");
-                startActivity(intent1);
-                return true;
-            case (R.id.Municipalities):
-                Toast.makeText(this, getString(R.string.Municipalities)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYmaakunnat");
-                startActivity(intent1);
-                return true;
-            case (R.id.Forms):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYlomakkeet");
-                startActivity(intent1);
-                return true;
-            case (R.id.Links):
-                Toast.makeText(this, getString(R.string.Links)+ " selected", Toast.LENGTH_LONG).show();
-                intent1 = new Intent(this, Main2Activity.class);
-                intent1.putExtra(key, "KEYlinkit");
-                startActivity(intent1);
-                return true;
-            case (R.id.Settings):
-                Toast.makeText(this, getString(R.string.Settings)+ " selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case (R.id.en_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                Locale locale = new Locale("en");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-
-            case (R.id.fi_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                locale = new Locale("fi");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-
-            case (R.id.sv_language):
-                Toast.makeText(this, getString(R.string.Forms)+ " selected", Toast.LENGTH_LONG).show();
-                locale = new Locale("sv");
-                Locale.setDefault(locale);
-                config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                recreate();
-                return true;
-            /*case (R.id.Palvelut):
-                Toast.makeText(this, "Palvelut selected", Toast.LENGTH_LONG).show();
-                return true;
-                */
-        }
-        return false;
+        mymenu.SelectItem(item.getItemId());
+        return true;
     }
 
 }

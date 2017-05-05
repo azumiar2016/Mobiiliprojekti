@@ -12,6 +12,13 @@
     </item>
 
     <item
+        android:title="@string/Mainmenu"
+        android:id="@+id/MainMenu"
+        app:showAsAction="never"
+        >
+    </item>
+
+    <item
         android:title="@string/Municipalities"
         android:id="@+id/Municipalities"
         app:showAsAction="never">
@@ -39,8 +46,17 @@
         android:id="@+id/Links"
         app:showAsAction="never"
         >
+        </item>
+
+    <item
+        android:title="@string/about"
+        android:id="@+id/About"
+        app:showAsAction="never"
+        >
 
     </item>
+
+
 
     <item
         android:title="Settings"

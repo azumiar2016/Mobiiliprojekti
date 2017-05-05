@@ -2,34 +2,62 @@ package suomi.fi;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.Locale;
 
-import static suomi.fi.ButtonAdapter.key;
 
-public class MainActivity extends AppCompatActivity {
+public class OrganizationActivity extends AppCompatActivity {
 
-    // debug message tag
-    public static final String EXTRA_MESSAGE = "suomi.fi.jsonlist.MESSAGE";
     MenuClass mymenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_organization);
+
         mymenu = new MenuClass(this);
 
+        Button btnWebsite = (Button)findViewById(R.id.btnWebsite);
+        Button btnGeneral = (Button)findViewById(R.id.btnGeneral);
+        TextView title = (TextView)findViewById(R.id.textTitle);
+        TextView textHomePage = (TextView)findViewById(R.id.textHomePage);
+        TextView textInfo = (TextView)findViewById(R.id.textInfo);
+
+        Intent intent = getIntent();
+
+
+        final String[] organizationURLS  = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+
+        title.setText(organizationURLS[0]);
+        textHomePage.setText(organizationURLS[1]);
+        textInfo.setText(organizationURLS[2]);
+
+        btnWebsite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(organizationURLS[1]));
+                startActivity(intent);
+            }
+        });
+
+        btnGeneral.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(organizationURLS[2]));
+                startActivity(intent);
+            }
+        });
+
+
     }
-
-
-
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -58,31 +86,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
     }
-
-    protected void intentCounties(View view){
-        Intent intent1 = new Intent(MainActivity.this, Main2Activity.class);
-        intent1.putExtra(key, "KEYmaakunnat");
-        view.getContext().startActivity(intent1);
-    }
-
-    protected void intentOrganization(View view){
-        Intent intent4 = new Intent(MainActivity.this, Main2Activity.class);
-        intent4.putExtra(key, "KEYorganisaatiot");
-        view.getContext().startActivity(intent4);
-    }
-
-    protected void intentForms(View view){
-        Intent intent5 = new Intent(MainActivity.this, Main2Activity.class);
-        intent5.putExtra(key, "KEYlomakkeet");
-        view.getContext().startActivity(intent5);
-    }
-
-    protected void intentLinks(View view){
-        Intent intent6 = new Intent(MainActivity.this, Main2Activity.class);
-        intent6.putExtra(key, "KEYlinkit");
-        view.getContext().startActivity(intent6);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

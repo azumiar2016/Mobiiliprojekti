@@ -20,7 +20,7 @@ public class Article {
             this.articleName = object.getString("@title");
             this.articleLink = object.getString("$");
             this.articleOId  = object.getString("@oid");
-            this.articleContent = object.getString("content");
+            //this.articleContent = object.getString("content");
 
         }catch(JSONException e)
         {

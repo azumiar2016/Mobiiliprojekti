@@ -27,11 +27,30 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_main_title"
                 style="@style/activity_main_title"/>
-
-            <ListView
-                android:id="@+id/list"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/activity_main_button"
+                android:text="@string/btn_Counties_and_Municipaties"
+                android:onClick="intentCounties"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/activity_main_button"
+                android:text="@string/btn_Organizations"
+                android:onClick="intentOrganization"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/activity_main_button"
+                android:text="@string/btn_Forms"
+                android:onClick="intentForms"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/activity_main_button"
+                android:text="@string/btn_Links"
+                android:onClick="intentLinks"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
